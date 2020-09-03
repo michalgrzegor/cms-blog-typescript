@@ -1,15 +1,13 @@
 import '../../style/shared/blog-post.scss';
 import NavigationBar from '../navigation-bar/navigation';
-import {TOKEN_HANDLER} from '../auth/fetch';
-import {initBlogPost} from './blog-ui';
+import { TOKEN_HANDLER } from '../auth/fetch';
+import BlogPostInterface from './blog-ui';
 
-window.customElements.define('navigation-bar', NavigationBar);
-
-const onLoad = () => {
+(function onLoad() {
+  window.customElements.define('navigation-bar', NavigationBar);
   window.addEventListener('load', () => {
-    initBlogPost();
+    const blogPostInterface = new BlogPostInterface();
+    blogPostInterface.initBlogPost();
     TOKEN_HANDLER.setIsExpired(false);
   });
-};
-
-onLoad();
+})();

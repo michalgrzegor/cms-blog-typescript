@@ -1,5 +1,5 @@
 import Quill from 'quill';
-import { createBlogPost } from '../../blog-post/blog-ui';
+import BlogPostInterface from '../../blog-post/blog-ui';
 import { blogPostReq } from '../../auth/fetch';
 import { createLoader, removeLoader } from '../../shared-ui/loader';
 import showSnackBar from '../../shared-ui/snackbar';
@@ -50,7 +50,8 @@ const openPreview = () => {
   bgContainer.appendChild(previewArticle);
   document.body.appendChild(bgContainer);
   const data = collectData();
-  createBlogPost(data);
+  const blogPostInterface = new BlogPostInterface(data);
+  blogPostInterface.createBlogPost();
 };
 
 const previewButton = () => {
