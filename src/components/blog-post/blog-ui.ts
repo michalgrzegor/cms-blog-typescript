@@ -9,6 +9,7 @@ import commentlogo from '../../assets/img/commentlogo.png';
 import { blogPostsMainPageReq } from '../auth/fetch';
 import { createLoader, removeLoader } from '../shared-ui/loader';
 import { ColectedPostData } from '../interfaces/fetch-interfaces';
+import ImageLoader from '../shared-ui/image-loader';
 
 const createTitle = (resJson: BlogPost | ColectedPostData) => {
   const header = document.createElement('h1');
@@ -73,9 +74,15 @@ const appendElement = (
 };
 
 const appendImage = (src: string, postContainer: HTMLElement) => {
-  const img = new Image();
-  img.src = src;
-  postContainer.appendChild(img);
+  const img: HTMLImageElement = new Image();
+  const imageLoaderElement: HTMLDivElement = document.createElement('div');
+  const imgContainer: HTMLDivElement = document.createElement('div');
+  imageLoaderElement.classList.add('image__loader');
+  imgContainer.appendChild(img);
+  imgContainer.appendChild(imageLoaderElement);
+  postContainer.appendChild(imgContainer);
+  const imageLoader = new ImageLoader(src, imgContainer);
+  imageLoader.imageLoader();
 };
 
 const createPost = (resJson: BlogPost | ColectedPostData) => {
