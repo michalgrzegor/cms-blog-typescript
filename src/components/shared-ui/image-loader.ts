@@ -1,20 +1,28 @@
-const loadImage = (image: HTMLImageElement, container: HTMLElement) => {
-  (container.querySelector('.image__loader') as HTMLElement).style.display = 'none';
-  container.querySelector('img').style.display = 'block';
-  container.querySelector('img').src = image.src;
-};
+export default class ImageLoader {
+  private imageSRC: string;
+  private container: HTMLElement;
 
-const imageLoaderPromise = (imageSRC: string): Promise<HTMLImageElement> => {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = imageSRC;
-  });
-};
+  constructor(imageSRC: string, container: HTMLElement) {
+    this.imageSRC = imageSRC;
+    this.container = container;
+  }
 
-const imageLoader = (imageSRC: string, container: HTMLElement) => {
-  imageLoaderPromise(imageSRC).then((image) => loadImage(image, container));
-};
+  private loadImage(image: HTMLImageElement) {
+    this.container.querySelector<HTMLElement>('.image__loader').style.display = 'none';
+    this.container.querySelector('img').style.display = 'block';
+    this.container.querySelector('img').src = image.src;
+  }
 
-export default imageLoader;
+  private imageLoaderPromise(): Promise<HTMLImageElement> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = this.imageSRC;
+    });
+  }
+
+  imageLoader() {
+    this.imageLoaderPromise().then((image) => this.loadImage(image));
+  }
+}

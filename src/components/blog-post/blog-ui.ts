@@ -2,7 +2,7 @@ import {
   BlogPost,
   BlogPostContentElementAttributes,
   BlogPostContentElement,
-} from './../interfaces/blog-post-interface';
+} from '../interfaces/blog-post-interfaces';
 import twitter from '../../assets/img/twitter.png';
 import facebook from '../../assets/img/facebook.png';
 import commentlogo from '../../assets/img/commentlogo.png';

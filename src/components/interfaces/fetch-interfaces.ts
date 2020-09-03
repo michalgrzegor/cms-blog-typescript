@@ -1,4 +1,4 @@
-import { BlogPostContent } from './blog-post-interface';
+import { BlogPostContent } from './blog-post-interfaces';
 
 export interface PostID {
   postId: string;

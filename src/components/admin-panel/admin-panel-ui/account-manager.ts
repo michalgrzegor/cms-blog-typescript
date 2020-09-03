@@ -1,7 +1,7 @@
 import { usersReq } from '../../auth/fetch';
 import { createLoader, removeLoader } from '../../shared-ui/loader';
 import { logout } from '../../auth/pkce';
-import imageLoader from '../../shared-ui/image-loader';
+import ImageLoader from '../../shared-ui/image-loader';
 import showSnackBar from '../../shared-ui/snackbar';
 import * as validation from '../../auth/validation';
 import { User } from '../../interfaces/admin-panel-interfaces';
@@ -178,19 +178,21 @@ const renderMyAccount = (json: User) => {
   const container = document.querySelector('.admin__container');
   container.textContent = '';
   const template = getTemplate();
+  const avatarLoader = new ImageLoader(
+    json.avatar_url || `https://api.adorable.io/avatars/128/${json.email}`,
+    template.querySelector('.account__data')
+  );
+  const avatarLoaderEdit = new ImageLoader(
+    json.avatar_url || `https://api.adorable.io/avatars/128/${json.email}`,
+    template.querySelector('.account__edit')
+  );
   template.querySelector('.account__name span').textContent = json.username;
   template.querySelector('.account__email span').textContent = json.email;
   template.querySelector('.account__about span').textContent =
     json.about || 'write a few sentences about yourself';
   addEvents(template);
-  imageLoader(
-    json.avatar_url || `https://api.adorable.io/avatars/128/${json.email}`,
-    template.querySelector('.account__edit')
-  );
-  imageLoader(
-    json.avatar_url || `https://api.adorable.io/avatars/128/${json.email}`,
-    template.querySelector('.account__data')
-  );
+  avatarLoader.imageLoader();
+  avatarLoaderEdit.imageLoader();
   container.appendChild(template);
   removeLoader();
 };

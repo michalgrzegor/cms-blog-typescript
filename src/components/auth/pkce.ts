@@ -1,6 +1,6 @@
 import { TOKEN_HANDLER } from './fetch';
 import showSnackBar from '../shared-ui/snackbar';
-import { SuccesfullLoginResponse, QuerryResponse } from '../interfaces/auth-interface';
+import { SuccesfullLoginResponse, QuerryResponse } from '../interfaces/auth-interfaces';
 
 const URL = 'https://fierce-anchorage-12434.herokuapp.com/';
 

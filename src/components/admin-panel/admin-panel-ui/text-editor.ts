@@ -4,7 +4,7 @@ import { blogPostReq } from '../../auth/fetch';
 import { createLoader, removeLoader } from '../../shared-ui/loader';
 import showSnackBar from '../../shared-ui/snackbar';
 import { ColectedPostData } from '../../interfaces/fetch-interfaces';
-import { BlogPost } from '../../interfaces/blog-post-interface';
+import { BlogPost } from '../../interfaces/blog-post-interfaces';
 
 let editor: any;
 

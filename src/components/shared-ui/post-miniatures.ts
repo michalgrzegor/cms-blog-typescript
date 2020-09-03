@@ -1,7 +1,7 @@
-import { PostMiniature, PostMiniatureResponse } from '../interfaces/post-miniature-interface';
+import { PostMiniature, PostMiniatureResponse } from '../interfaces/post-miniature-interfaces';
 import { createLoader, removeLoader } from './loader';
 import { blogPostsMainPageReq, searchBlogPostsReq } from '../auth/fetch';
-import imageLoader from './image-loader';
+import ImageLoader from './image-loader';
 import showSnackBar from './snackbar';
 
 export default class PostsMiniatures {
@@ -23,8 +23,16 @@ export default class PostsMiniatures {
     return template.content.cloneNode(true) as HTMLElement;
   }
 
-  generateMiniature(postMin: PostMiniature) {
+  generateMiniature(postMin: PostMiniature): HTMLElement {
     const postTemplate = this.getPostTemplate();
+    const avatarLoader = new ImageLoader(
+      postMin.author_avatar_url || `https://api.adorable.io/avatars/40/${postMin.author}.png`,
+      postTemplate.querySelector('.miniature__author')
+    );
+    const mainImageLoader = new ImageLoader(
+      postMin.main_image_url || 'https://picsum.photos/900',
+      postTemplate.querySelector('.miniature__img')
+    );
     postTemplate.querySelector('.miniature__title').textContent = postMin.title;
     postTemplate.querySelector('.author__name').textContent = postMin.author;
     postTemplate.querySelector('.post__date').textContent = postMin.create_date;
@@ -34,14 +42,9 @@ export default class PostsMiniatures {
     (postTemplate.querySelector(
       '.miniature'
     ) as HTMLAnchorElement).href = `./blog-post?id=${postMin.id}`;
-    imageLoader(
-      postMin.author_avatar_url || `https://api.adorable.io/avatars/40/${postMin.author}.png`,
-      postTemplate.querySelector('.miniature__author')
-    );
-    imageLoader(
-      postMin.main_image_url || 'https://picsum.photos/900',
-      postTemplate.querySelector('.miniature__img')
-    );
+    avatarLoader.imageLoader();
+    mainImageLoader.imageLoader();
+
     return postTemplate;
   }
 

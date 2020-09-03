@@ -1,5 +1,5 @@
 import { makeRefreshTokenPost, errorHandling } from './pkce';
-import { SuccesfullLoginResponse } from '../interfaces/auth-interface';
+import { SuccesfullLoginResponse } from '../interfaces/auth-interfaces';
 
 export default class TokenHandler {
   TOKEN: string;

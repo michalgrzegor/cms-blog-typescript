@@ -1,14 +1,13 @@
 import '../../style/components_style/about.scss';
 import NavigationBar from '../navigation-bar/navigation';
-import {TOKEN_HANDLER} from '../auth/fetch';
-import initAbout from './about-ui';
+import { TOKEN_HANDLER } from '../auth/fetch';
+import AboutPage from './about-ui';
 
-window.customElements.define('navigation-bar', NavigationBar);
-
-const onLoad = () => {
+(function onLoad() {
+  window.customElements.define('navigation-bar', NavigationBar);
   window.addEventListener('load', () => {
     TOKEN_HANDLER.setIsExpired(false);
-    initAbout();
+    const aboutPage = new AboutPage();
+    aboutPage.initAbout();
   });
-};
-onLoad();
+})();
