@@ -1,10 +1,15 @@
 import { User } from './../interfaces/admin-panel-interfaces';
 import { usersReq } from '../auth/fetch';
 import ImageLoader from '../shared-ui/image-loader';
-import { createLoader, removeLoader } from '../shared-ui/loader';
+import Loader from '../shared-ui/loader';
 
 export default class AboutPage {
   private usersList: User[];
+  loader: Loader;
+
+  constructor() {
+    this.loader = new Loader();
+  }
 
   private getTemplate(): HTMLElement {
     const temp: HTMLTemplateElement = document.querySelector('#card__template');
@@ -30,12 +35,12 @@ export default class AboutPage {
   }
 
   initAbout() {
-    createLoader(document.body);
+    this.loader.createLoader(document.body);
     usersReq()
       .getUsers()
       .then((r) => r.json())
       .then((response) => (this.usersList = response))
       .then(() => this.renderCards())
-      .then(() => removeLoader());
+      .then(() => this.loader.removeLoader());
   }
 }

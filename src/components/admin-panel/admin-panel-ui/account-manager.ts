@@ -1,10 +1,12 @@
 import { usersReq } from '../../auth/fetch';
-import { createLoader, removeLoader } from '../../shared-ui/loader';
+import Loader from '../../shared-ui/loader';
 import { logout } from '../../auth/pkce';
 import ImageLoader from '../../shared-ui/image-loader';
 import showSnackBar from '../../shared-ui/snackbar';
 import * as validation from '../../auth/validation';
 import { User } from '../../interfaces/admin-panel-interfaces';
+
+const loader: Loader = new Loader();
 
 const checkError = (response: any) => {
   if (response.status >= 200 && response.status <= 299) {
@@ -66,7 +68,7 @@ const saveAccount = () => {
     'write a few sentences about yourself'
   )
     about = document.querySelector<HTMLInputElement>('.input__about').value;
-  createLoader(document.body);
+  loader.createLoader(document.body);
   usersReq()
     .updateUser({
       username: document.querySelector<HTMLInputElement>('.input__name').value,
@@ -79,7 +81,7 @@ const saveAccount = () => {
     .then((r) => renderMyAccount(r))
     .catch((err) => {
       showSnackBar('something went wrong, try again');
-      removeLoader();
+      loader.removeLoader();
     });
 };
 
@@ -97,7 +99,7 @@ const saveEmailPassChanges = () => {
     if (!validation.isValid(newPass.value, newPass.type)) isFormValid = false;
   }
   if (isFormValid) {
-    createLoader(document.body);
+    loader.createLoader(document.body);
     usersReq()
       .changeEmailPassword({
         email: document.querySelector<HTMLInputElement>('.input__email').value,
@@ -105,7 +107,7 @@ const saveEmailPassChanges = () => {
         old_password: document.querySelector<HTMLInputElement>('.input__oldpass').value,
       })
       .then((r) => {
-        removeLoader();
+        loader.removeLoader();
         if (r.status === 200) r.json().then((re: User) => renderMyAccount(re));
         if (r.status !== 200) r.json().then((re: any) => showSnackBar(re.details));
       });
@@ -194,11 +196,11 @@ const renderMyAccount = (json: User) => {
   avatarLoader.imageLoader();
   avatarLoaderEdit.imageLoader();
   container.appendChild(template);
-  removeLoader();
+  loader.removeLoader();
 };
 
 const initMyAccount = () => {
-  createLoader(document.body);
+  loader.createLoader(document.body);
   usersReq()
     .getUser()
     .then(checkError)
@@ -206,7 +208,7 @@ const initMyAccount = () => {
     .then((r) => renderMyAccount(r))
     .catch((err) => {
       showSnackBar('something went wrong, try again');
-      removeLoader();
+      loader.removeLoader();
     });
 };
 

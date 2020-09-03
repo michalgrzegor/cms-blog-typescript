@@ -1,12 +1,13 @@
 import Quill from 'quill';
 import BlogPostInterface from '../../blog-post/blog-ui';
 import { blogPostReq } from '../../auth/fetch';
-import { createLoader, removeLoader } from '../../shared-ui/loader';
+import Loader from '../../shared-ui/loader';
 import showSnackBar from '../../shared-ui/snackbar';
 import { ColectedPostData } from '../../interfaces/fetch-interfaces';
 import { BlogPost } from '../../interfaces/blog-post-interfaces';
 
-let editor: any;
+let editor: Quill;
+const loader: Loader = new Loader();
 
 const options = {
   modules: {
@@ -72,7 +73,7 @@ const sendPost = () => {
       ops: editor.getContents().ops,
     },
   };
-  createLoader(document.body);
+  loader.createLoader(document.body);
   blogPostReq()
     .postBlogPost(data)
     .then((r) => {
@@ -82,7 +83,7 @@ const sendPost = () => {
     .then((r) => redirectToBlogPost(r))
     .catch((err) => {
       showSnackBar('something went wrong, try again');
-      removeLoader();
+      loader.removeLoader();
     });
 };
 
@@ -100,7 +101,7 @@ const sendUpdate = (id: string) => {
       ops: editor.getContents().ops,
     },
   };
-  createLoader(document.body);
+  loader.createLoader(document.body);
   blogPostReq()
     .updateBlogPost(id, data)
     .then((r) => {
@@ -110,7 +111,7 @@ const sendUpdate = (id: string) => {
     .then((r) => redirectToBlogPost(r))
     .catch((err) => {
       showSnackBar('something went wrong, try again');
-      removeLoader();
+      loader.removeLoader();
     });
 };
 

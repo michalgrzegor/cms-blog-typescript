@@ -1,8 +1,9 @@
 import '../../style/style.scss';
-import { createLoader } from '../shared-ui/loader';
+import Loader from '../shared-ui/loader';
 import { login } from '../auth/pkce';
 
 (function onLoad() {
-  createLoader(document.body);
+  const loader = new Loader();
+  loader.createLoader(document.body);
   login();
 })();

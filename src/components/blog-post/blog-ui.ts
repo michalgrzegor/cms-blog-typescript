@@ -7,17 +7,19 @@ import twitter from '../../assets/img/twitter.png';
 import facebook from '../../assets/img/facebook.png';
 import commentlogo from '../../assets/img/commentlogo.png';
 import { blogPostsMainPageReq } from '../auth/fetch';
-import { createLoader, removeLoader } from '../shared-ui/loader';
+import Loader from '../shared-ui/loader';
 import { ColectedPostData } from '../interfaces/fetch-interfaces';
 import ImageLoader from '../shared-ui/image-loader';
 
 export default class BlogPostInterface {
   private blogPostData: BlogPost | ColectedPostData;
   private postContainer: HTMLElement;
+  private loader: Loader;
 
   constructor(blogPostData: BlogPost | ColectedPostData = null) {
     this.blogPostData = blogPostData;
     this.postContainer = document.querySelector('.article');
+    this.loader = new Loader();
   }
 
   private createTitle(): void {
@@ -130,11 +132,11 @@ export default class BlogPostInterface {
   }
 
   initBlogPost(): void {
-    createLoader(document.body);
+    this.loader.createLoader(document.body);
     this.getBlogPost()
       .then((res) => res.json())
       .then((res) => (this.blogPostData = res))
       .then(() => this.createBlogPost())
-      .then(() => removeLoader());
+      .then(() => this.loader.removeLoader());
   }
 }

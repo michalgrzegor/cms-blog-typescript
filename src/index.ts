@@ -3,7 +3,7 @@ import PostsMiniatures from './components/shared-ui/post-miniatures';
 import { TOKEN_HANDLER } from './components/auth/fetch';
 import NavigationBar from './components/navigation-bar/navigation';
 
-const onLoad = (): void => {
+(function onLoad() {
   window.customElements.define('navigation-bar', NavigationBar);
   const PM = new PostsMiniatures();
   PM.initPostsMiniatures(1);
@@ -11,6 +11,4 @@ const onLoad = (): void => {
   window.addEventListener('load', () => {
     TOKEN_HANDLER.setIsExpired(false);
   });
-};
-
-onLoad();
+})();

@@ -1,4 +1,4 @@
-import { createLoader, removeLoader } from '../shared-ui/loader';
+import Loader from '../shared-ui/loader';
 import { renderError } from './validation';
 import TokenHandler from './token';
 import { login } from './pkce';
@@ -16,6 +16,8 @@ import {
 } from '../interfaces/fetch-interfaces';
 
 const URL = 'https://fierce-anchorage-12434.herokuapp.com/';
+
+const loader: Loader = new Loader();
 
 export const TOKEN_HANDLER = new TokenHandler();
 
@@ -43,7 +45,7 @@ export const signup = () => {
     username: document.querySelector<HTMLInputElement>('#user_name_signup').value,
     token: document.querySelector<HTMLInputElement>('#user_token_signup').value,
   };
-  createLoader(document.body);
+  loader.createLoader(document.body);
   fetch(`${URL}registrations`, {
     method: 'POST',
     headers: {
@@ -60,7 +62,7 @@ export const signup = () => {
         login();
       }
     })
-    .then(() => removeLoader());
+    .then(() => loader.removeLoader());
 };
 
 export const reset = () => {

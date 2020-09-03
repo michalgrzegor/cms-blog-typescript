@@ -1,5 +1,5 @@
 import { PostMiniature, PostMiniatureResponse } from '../interfaces/post-miniature-interfaces';
-import { createLoader, removeLoader } from './loader';
+import Loader from './loader';
 import { blogPostsMainPageReq, searchBlogPostsReq } from '../auth/fetch';
 import ImageLoader from './image-loader';
 import showSnackBar from './snackbar';
@@ -10,12 +10,14 @@ export default class PostsMiniatures {
   pageNumber: number;
   isSearchMode: boolean;
   query: string;
+  loader: Loader;
 
   constructor() {
     this.postMiniaturesArray = [];
     this.paginationNumber = null;
     this.pageNumber = 1;
     this.isSearchMode = false;
+    this.loader = new Loader();
   }
 
   getPostTemplate() {
@@ -120,7 +122,7 @@ export default class PostsMiniatures {
     this.pageNumber = pageNumber;
     if (this.isSearchMode) {
       document.querySelector('.container').innerHTML = '';
-      createLoader(document.querySelector('.container'));
+      this.loader.createLoader(document.querySelector('.container'));
       const postMins = await searchBlogPostsReq()
         .searchBlogPosts({
           search: query,
@@ -132,7 +134,7 @@ export default class PostsMiniatures {
         this.generatePages(postMins.blog_posts_count);
         this.renderPostsMin(this.postMiniaturesArray[0]);
       }
-      removeLoader();
+      this.loader.removeLoader();
     }
     if (!this.isSearchMode) {
       this.pageNumber = 1;
@@ -152,20 +154,20 @@ export default class PostsMiniatures {
   }
 
   async initPostsMiniatures(number: number): Promise<any> {
-    createLoader(document.body);
+    this.loader.createLoader(document.body);
     this.paginationNumber = number;
     const postMins = await blogPostsMainPageReq()
       .getBlogPostsMainPageByNumber(number)
       .then((r) => r.json())
       .catch((err) => {
         showSnackBar('something went wrong, try again');
-        removeLoader();
+        this.loader.removeLoader();
       });
     if (postMins.blog_posts.length > 0) {
       this.postMiniaturesArray = this.generateArrays(postMins);
       this.generatePages(postMins.blog_posts_count);
       this.renderPostsMin(this.postMiniaturesArray[0]);
     }
-    removeLoader();
+    this.loader.removeLoader();
   }
 }

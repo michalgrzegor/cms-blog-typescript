@@ -1,4 +1,4 @@
-import { createLoader, removeLoader } from '../../shared-ui/loader';
+import Loader from '../../shared-ui/loader';
 import { blogPostReq } from '../../auth/fetch';
 import { loadDataToEditor } from './text-editor';
 import { changeToEditor } from '../admin-navigation';
@@ -13,6 +13,7 @@ export default class ManagerFunctions extends OpenDialog {
   pageNumber: number;
   pagesNumber: any;
   mngType: string;
+  loader: Loader;
 
   constructor() {
     super();
@@ -22,6 +23,7 @@ export default class ManagerFunctions extends OpenDialog {
     this.pageNumber = 1;
     this.pagesNumber = null;
     this.mngType = null;
+    this.loader = new Loader();
   }
 
   removeTable() {
@@ -31,22 +33,22 @@ export default class ManagerFunctions extends OpenDialog {
   addPostsBtnEvents(template: HTMLDivElement) {
     Array.from(template.querySelectorAll('.btn--edit')).forEach((btn) => {
       btn.addEventListener('click', () => {
-        createLoader(document.body);
+        this.loader.createLoader(document.body);
         blogPostReq()
           .getBlogPost(btn.getAttribute('post-id'))
           .then((r) => r.json())
           .then(changeToEditor)
           .then(loadDataToEditor)
-          .then(() => removeLoader())
+          .then(() => this.loader.removeLoader())
           .catch((err) => {
             showSnackBar('something went wrong, try again');
-            removeLoader();
+            this.loader.removeLoader();
           });
       });
     });
     Array.from(template.querySelectorAll('.btn--delete')).forEach((btn) => {
       btn.addEventListener('click', () => {
-        createLoader(document.body);
+        this.loader.createLoader(document.body);
         const accept = () => {
           blogPostReq()
             .deleteBlogPost(btn.getAttribute('post-id'))
@@ -55,14 +57,14 @@ export default class ManagerFunctions extends OpenDialog {
             .then((response) => this.setLists(response, this.mngType))
             .then(() => this.removeTable())
             .then(() => this.renderTable())
-            .then(() => removeLoader())
+            .then(() => this.loader.removeLoader())
             .catch((err) => {
               showSnackBar('something went wrong, try again');
-              removeLoader();
+              this.loader.removeLoader();
             });
         };
         const decline = () => {
-          removeLoader();
+          this.loader.removeLoader();
         };
         this.createDialog(accept, decline, 'Delete this blog post?');
       });
