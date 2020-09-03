@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Work+Sans:wght@300;700&display=swap');
+
+@mixin textWorkSansBold($fontSize, $fontColor) {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 700;
+    font-size: $fontSize;
+    color: $fontColor;
+}
+
+@mixin textWorkSansLight($fontSize, $fontColor) {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 300;
+    font-size: $fontSize;
+    color: $fontColor;
+}
+
+@mixin textOpenSansLight($fontSize, $fontColor) {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: $fontSize;
+    color: $fontColor;
+}

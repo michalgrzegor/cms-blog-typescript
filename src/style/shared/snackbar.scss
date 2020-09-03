@@ -1,0 +1,12 @@
+.snackbar {
+  background: $backgroundDarkGrey;
+  position: fixed;
+  bottom: 2.4rem;
+  left: calc(50vw - 16rem);
+  width: 32rem;
+  border-radius: 0.4rem;
+
+  p {
+    color: $whiteText;
+  }
+}

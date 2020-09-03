@@ -1,0 +1,64 @@
+@import '../style.scss';
+@import '../shared/mixins.scss';
+@import '../shared/colors.scss';
+
+.about__container {
+  max-width: 91.6rem;
+  margin: 0 auto 4.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  .about__card {
+    box-sizing: border-box;
+    width: 31.33%;
+    min-width: 28rem;
+    margin: 0.8rem;
+    padding: 1.2rem;
+    background: $mainPlainColor;
+
+    .about__author {
+      display: flex;
+      flex-wrap: wrap;
+
+      .image__loader,
+      .author__img {
+        width: 6.4rem;
+        height: 6.4rem;
+        margin-right: 1.2rem;
+        border-radius: 50%;
+      }
+
+      .author__img {
+        display: none;
+      }
+
+      .author__data {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+
+    .about__bio {
+      padding: 0.8rem 0;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .about__container {
+    .about__card {
+      width: 46%;
+    }
+  }
+}
+
+@media (max-width: 610px) {
+  .about__container {
+    .about__card {
+      width: 100%;
+    }
+  }
+}

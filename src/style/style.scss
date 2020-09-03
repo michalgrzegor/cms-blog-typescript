@@ -1,0 +1,71 @@
+@import './shared/colors.scss';
+@import './shared/mixins.scss';
+
+@import './components_style/nav.scss';
+@import './components_style/post-miniature.scss';
+@import './shared/snackbar.scss';
+@import './shared/dialog.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  font-size: 10px;
+  background-color: $backgroundGrey;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1 {
+  @include textWorkSansBold(3.6rem, $headerText);
+  padding: 1.6rem 3.2rem;
+  margin: 0;
+}
+
+h2 {
+  @include textWorkSansBold(2.4rem, $headerText);
+  padding: 1.6rem 3.2rem;
+  margin: 0;
+}
+
+h3 {
+  @include textWorkSansBold(1.4rem, $headerText);
+  margin: 0;
+}
+
+p {
+  @include textOpenSansLight(1.6rem, $headerText);
+  padding: 1.6rem 3.2rem;
+  margin: 0;
+}
+
+label {
+  @include textWorkSansLight(1.2rem, $headerText);
+  text-transform: uppercase;
+  margin: .4rem 0;
+}
+
+.home__title {
+  @include textWorkSansLight(4.8rem, $boldText);
+  text-align: center;
+  padding: 4.8rem;
+}
+
+@media (max-width: 480px) {
+
+  body,
+  html {
+    font-size: 8px;
+  }
+
+  .home__title {
+    padding: 2rem;
+  }
+}

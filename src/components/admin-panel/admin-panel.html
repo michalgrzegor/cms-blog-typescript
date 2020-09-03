@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0" />
+  <title>blog - admin panel</title>
+</head>
+
+<body>
+  <navigation-bar></navigation-bar>
+  <div class="admin__navigation">
+    <h1>Admin panel</h1>
+    <div class="admin__categories">
+      <ul>
+        <li>
+          <h3 class="bg--color-active">New post</h3>
+        </li>
+        <li>
+          <h3>Manage posts</h3>
+        </li>
+        <li>
+          <h3>Manage users</h3>
+        </li>
+        <li>
+          <h3>My account</h3>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <main class="admin__container"></main>
+  <div id="otput"></div>
+</body>
+
+<template id="editor__template">
+  <h3>Add title</h3>
+  <div>
+    <input type="text" id="editor__title" placeholder="Post title" />
+  </div>
+  <h3>Add introduction - it will be visible in blog post miniature</h3>
+  <div class="editor__flex">
+    <textarea name="intro" class="editor__textarea" cols="30" rows="5"></textarea>
+  </div>
+  <h3>Add blog post body</h3>
+  <div class="editor__flex">
+    <div id="editor"></div>
+  </div>
+  <div class="editor__buttons">
+    <button class="editor__button btn--hidden">Update</button>
+    <button class="editor__button">Publish post</button>
+    <button class="editor__button">See preview</button>
+  </div>
+</template>
+<template id="post__template">
+  <div class="post__search">
+    <input type="text" />
+    <img src="../../assets/svg/search.svg" alt="search button" />
+  </div>
+  <div class="post__legend">
+    <p class="post__number">num</p>
+    <p sortOrder="0" sort="title" class="post__title">title</p>
+    <p sortOrder="0" sort="author" class="post__author">author</p>
+    <p sortOrder="0" sort="last_update_date" class="post__date">date</p>
+    <div class="post__btns">
+      <p>options</p>
+    </div>
+  </div>
+  <div class="post__row">
+    <p class="post__number"></p>
+    <p class="post__title"></p>
+    <p class="post__author"></p>
+    <p class="post__date"></p>
+    <div class="post__btns">
+      <button class="post__btn btn--edit" style="background-image: '../../assets/svg/edit.svg';">
+        <img src="../../assets/svg/edit.svg" alt="edit post" />
+      </button>
+      <button class="post__btn btn--delete">
+        <img src="../../assets/svg/delete.svg" alt="delete post" />
+      </button>
+    </div>
+  </div>
+</template>
+<template id="user__template">
+  <div class="user__search">
+    <input type="text" />
+    <img src="../../assets/svg/search.svg" alt="search button" />
+  </div>
+  <div class="user__legend">
+    <p class="user__number">num</p>
+    <p sortOrder="0" sort="username" class="user__author">name</p>
+    <p sortOrder="0" sort="created_at" class="user__date">date</p>
+    <p sortOrder="0" sort="email" class="user__email">email</p>
+  </div>
+  <div class="user__row">
+    <p class="user__number"></p>
+    <p class="user__author"></p>
+    <p class="user__date"></p>
+    <p class="user__email"></p>
+  </div>
+  <div class="editor__buttons">
+    <button class="editor__button">Generate Token</button>
+    <p>if you want to invite a new user, generate a token for her/him</p>
+  </div>
+</template>
+<template id="account__template">
+  <div class="account__data">
+    <img src="https://api.adorable.io/avatars/128/x" alt="" />
+    <div class="image__loader"></div>
+    <h3 class="account__name">name: <span></span></h3>
+    <h3 class="account__email">email: <span></span></h3>
+    <h3 class="account__about">about: <span></span></h3>
+  </div>
+  <div class="account__edit hide">
+    <img src="https://api.adorable.io/avatars/128/x" alt="" />
+    <div class="image__loader"></div>
+    <input type="file" class="input__avatar" hidden="hidden" />
+    <div>
+      <button class="editor__button btn-file">Upload Image</button>
+    </div>
+    <p>name:</p>
+    <input class="input__name" type="text" />
+    <p>about:</p>
+    <textarea name="input__about" class="input__about" cols="30" rows="10"></textarea>
+  </div>
+  <div class="account__change hide">
+    <p>email:</p>
+    <div><input class="input__email" id="input__email" type="email" /></div>
+    <p>new password:</p>
+    <div><input class="input__newpass" id="input__newpass" type="password" /></div>
+    <p>old password:</p>
+    <div><input class="input__oldpass" id="input__oldpass" type="password" /></div>
+  </div>
+  <div class="editor__buttons">
+    <button class="editor__button btn-edit">Edit Profile</button>
+    <button class="editor__button btn-change">Change email/pass</button>
+    <button class="editor__button btn-save hide">Save Profile</button>
+    <button class="editor__button btn-save-change hide">Save Changes</button>
+    <button class="editor__button btn-cancel hide">Cancel</button>
+    <button class="editor__button btn-cancel-change hide">Cancel</button>
+    <button class="editor__button btn-logout">Logout</button>
+  </div>
+</template>
+
+</html>

@@ -1,0 +1,25 @@
+.image__loader {
+  box-sizing: border-box;
+  border: 0.5rem solid $backgroundGrey;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.4);
+    border: 0.5rem solid $backgroundGrey;
+    border-radius: 2.4rem;
+  }
+
+  50% {
+    transform: scale(1);
+    border: 1.7rem solid $mainPlainColor;
+    border-radius: 0;
+  }
+
+  100% {
+    transform: scale(0.4);
+    border: 0.5rem solid $backgroundGrey;
+    border-radius: 2.4rem;
+  }
+}

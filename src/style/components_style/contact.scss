@@ -1,0 +1,27 @@
+@import '../style.scss';
+
+.contact__container {
+    box-sizing: border-box;
+    max-width: 96rem;
+    width: 100%;
+    margin: 3.6rem auto;
+    background: $mainPlainColor;
+
+    p {
+        padding: 0 1.8rem;
+    }
+
+    h1 {
+        padding: 1.8rem 1.8rem;
+    }
+
+    h2 {
+        padding: 1.2rem 1.8rem;
+    }
+
+    .contact__map {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 1.2rem;
+    }
+}

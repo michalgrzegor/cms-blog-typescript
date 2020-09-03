@@ -1,0 +1,41 @@
+.dialog__bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+
+    .dialog__container {
+        width: 24rem;
+        background: $backgroundGrey;
+        padding: 1.2rem;
+
+        p {
+            padding: 0 0 1.2rem;
+        }
+
+        button {
+            height: 3.6rem;
+            width: 8.6rem;
+            margin-right: 1.2rem;
+            border: 1px solid $boldText;
+            border-radius: 0;
+            outline: none;
+            @include textWorkSansBold(1.4rem, $headerText);
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: $lightBackgroundGreyHover;
+        }
+
+        button:active {
+            background: $lightBackgroundGreyActive;
+        }
+    }
+}

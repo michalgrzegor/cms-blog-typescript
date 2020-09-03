@@ -1,0 +1,90 @@
+@import '../style.scss';
+@import '../shared/loader.scss';
+@import '../shared/mixins.scss';
+@import '../shared/colors.scss';
+
+.auth__container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .auth__form {
+    width: 36rem;
+    padding: 2.4rem;
+    background: $mainPlainColor;
+
+    form {
+      ul {
+        list-style: none;
+
+        li {
+          display: flex;
+          flex-wrap: wrap;
+
+          label,
+          input {
+            width: 100%;
+            display: block;
+          }
+
+          input {
+            height: 3.6rem;
+            margin-bottom: 1.8rem;
+            padding-left: 0.6rem;
+            outline: none;
+            border: none;
+            background: $lightBackgroundGrey;
+            @include textOpenSansLight(1.6rem, $headerText);
+          }
+
+          .error {
+            padding: 0;
+            margin-top: -1.2rem;
+            @include textOpenSansLight(1.2rem, $errorText);
+          }
+        }
+      }
+    }
+
+    .form__button {
+      width: 100%;
+      background: none;
+      outline: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button--main {
+      height: 3.6rem;
+      margin-bottom: 2.4rem;
+      margin-top: 2.4rem;
+      border: 1px solid $boldText;
+      @include textWorkSansBold(1.4rem, $headerText);
+      text-transform: uppercase;
+    }
+
+    .button--main:hover {
+      background: $lightBackgroundGreyHover;
+    }
+
+    .button--main:active {
+      background: $lightBackgroundGreyActive;
+    }
+
+    .button--text {
+      @include textOpenSansLight(1.4rem, $headerText);
+      margin: 0.4rem 0;
+      min-height: 2.4rem;
+    }
+
+    .button--text:hover {
+      background: $lightBackgroundGreyHover;
+    }
+
+    .button--text:active {
+      background: $lightBackgroundGreyActive;
+    }
+  }
+}
