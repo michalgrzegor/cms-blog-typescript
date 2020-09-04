@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0"
+    />
+    <title>blog - home page</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0" />
-  <title>blog - home page</title>
-</head>
-
-<body>
-  <navigation-bar></navigation-bar>
-  <main>
-    <h1 class="home__title">Blog title</h1>
-    <div class="blog__search">
-      <input type="text" />
-      <img src="./assets/svg/search.svg" alt="search button" />
-    </div>
-    <div class="container"></div>
-  </main>
-
-  <template id="miniature__template">
-    <a href="./blog-post" class="miniature">
-      <div class="miniature__img">
-        <img src="./assets/img/sample.png" alt="" />
-        <div class="image__loader"></div>
+  <body>
+    <navigation-bar></navigation-bar>
+    <main>
+      <h1 class="home__title">Blog title</h1>
+      <div class="blog__search">
+        <input type="text" />
+        <img src="./assets/svg/search.svg" alt="search button" />
       </div>
-      <div class="miniature__info">
-        <div class="miniature__content">
-          <h3 class="miniature__title"></h3>
-          <div class="miniature__author">
-            <img src="./assets/img/authorimg.png" alt="" />
-            <div class="image__loader"></div>
-            <div class="author__info">
-              <h4 class="author__name"></h4>
-              <p class="post__date"></p>
+      <div class="container"></div>
+    </main>
+
+    <template id="miniature__template">
+      <a href="./blog-post" class="miniature">
+        <div class="miniature__img">
+          <img src="./assets/img/sample.png" alt="" />
+          <div class="image__loader"></div>
+        </div>
+        <div class="miniature__info">
+          <div class="miniature__content">
+            <h3 class="miniature__title"></h3>
+            <div class="miniature__author">
+              <img src="./assets/img/authorimg.png" alt="" />
+              <div class="image__loader"></div>
+              <div class="author__info">
+                <h4 class="author__name"></h4>
+                <p class="post__date"></p>
+              </div>
+            </div>
+            <p class="miniature__opening"></p>
+          </div>
+          <div class="miniature__social">
+            <div class="post__comment">
+              <img src="./assets/img/commentlogo.png" alt="" />
+              <p class="post__comments">17</p>
             </div>
           </div>
-          <p class="miniature__opening"></p>
         </div>
-        <div class="miniature__social">
-          <div class="post__comment">
-            <img src="./assets/img/commentlogo.png" alt="" />
-            <p class="post__comments">17</p>
-          </div>
-        </div>
-      </div>
-    </a>
-  </template>
-</body>
-
+      </a>
+    </template>
+  </body>
 </html>

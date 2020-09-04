@@ -2,10 +2,11 @@ import { PostListElement } from './../../interfaces/admin-panel-interfaces';
 import ManagerFunctions from './shared-functions';
 import { blogPostReq } from '../../auth/fetch';
 import Loader from '../../shared-ui/loader';
-import showSnackBar from '../../shared-ui/snackbar';
+import SnackBar from '../../shared-ui/snackbar';
 
-const mf = new ManagerFunctions();
-const loader = new Loader();
+const mf: ManagerFunctions = new ManagerFunctions();
+const loader: Loader = new Loader();
+const snackBar: SnackBar = new SnackBar();
 
 const renderPostsManager = (postsList: PostListElement[]) => {
   if (postsList.length > 0) {
@@ -22,7 +23,7 @@ const initPostsManager = () => {
     .then((response) => response.json())
     .then(renderPostsManager)
     .catch((err) => {
-      showSnackBar('something went wrong, try again');
+      snackBar.showSnackBar('something went wrong, try again');
       loader.removeLoader();
     });
 };

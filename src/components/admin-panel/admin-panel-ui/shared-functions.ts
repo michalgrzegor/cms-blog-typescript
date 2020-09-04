@@ -2,9 +2,9 @@ import Loader from '../../shared-ui/loader';
 import { blogPostReq } from '../../auth/fetch';
 import { loadDataToEditor } from './text-editor';
 import { changeToEditor } from '../admin-navigation';
-import showSnackBar from '../../shared-ui/snackbar';
 import OpenDialog from '../../shared-ui/dialog';
 import { User, PostListElement } from '../../interfaces/admin-panel-interfaces';
+import SnackBar from '../../shared-ui/snackbar';
 
 export default class ManagerFunctions extends OpenDialog {
   entryList: (User | PostListElement)[];
@@ -14,6 +14,7 @@ export default class ManagerFunctions extends OpenDialog {
   pagesNumber: any;
   mngType: string;
   loader: Loader;
+  snackBar: SnackBar;
 
   constructor() {
     super();
@@ -24,6 +25,7 @@ export default class ManagerFunctions extends OpenDialog {
     this.pagesNumber = null;
     this.mngType = null;
     this.loader = new Loader();
+    this.snackBar = new SnackBar();
   }
 
   removeTable() {
@@ -41,7 +43,7 @@ export default class ManagerFunctions extends OpenDialog {
           .then(loadDataToEditor)
           .then(() => this.loader.removeLoader())
           .catch((err) => {
-            showSnackBar('something went wrong, try again');
+            this.snackBar.showSnackBar('something went wrong, try again');
             this.loader.removeLoader();
           });
       });
@@ -59,7 +61,7 @@ export default class ManagerFunctions extends OpenDialog {
             .then(() => this.renderTable())
             .then(() => this.loader.removeLoader())
             .catch((err) => {
-              showSnackBar('something went wrong, try again');
+              this.snackBar.showSnackBar('something went wrong, try again');
               this.loader.removeLoader();
             });
         };

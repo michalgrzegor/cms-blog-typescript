@@ -2,11 +2,12 @@ import { usersReq } from '../../auth/fetch';
 import Loader from '../../shared-ui/loader';
 import { logout } from '../../auth/pkce';
 import ImageLoader from '../../shared-ui/image-loader';
-import showSnackBar from '../../shared-ui/snackbar';
+import SnackBar from '../../shared-ui/snackbar';
 import * as validation from '../../auth/validation';
 import { User } from '../../interfaces/admin-panel-interfaces';
 
 const loader: Loader = new Loader();
+const snackBar: SnackBar = new SnackBar();
 
 const checkError = (response: any) => {
   if (response.status >= 200 && response.status <= 299) {
@@ -80,7 +81,7 @@ const saveAccount = () => {
     .then((r) => r.json())
     .then((r) => renderMyAccount(r))
     .catch((err) => {
-      showSnackBar('something went wrong, try again');
+      snackBar.showSnackBar('something went wrong, try again');
       loader.removeLoader();
     });
 };
@@ -109,7 +110,7 @@ const saveEmailPassChanges = () => {
       .then((r) => {
         loader.removeLoader();
         if (r.status === 200) r.json().then((re: User) => renderMyAccount(re));
-        if (r.status !== 200) r.json().then((re: any) => showSnackBar(re.details));
+        if (r.status !== 200) r.json().then((re: any) => snackBar.showSnackBar(re.details));
       });
   } else {
     inputArray.forEach((input) => validation.validate(input.value, input.type, input.id));
@@ -207,7 +208,7 @@ const initMyAccount = () => {
     .then((r) => r.json())
     .then((r) => renderMyAccount(r))
     .catch((err) => {
-      showSnackBar('something went wrong, try again');
+      snackBar.showSnackBar('something went wrong, try again');
       loader.removeLoader();
     });
 };

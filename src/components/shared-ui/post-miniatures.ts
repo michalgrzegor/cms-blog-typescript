@@ -2,7 +2,7 @@ import { PostMiniature, PostMiniatureResponse } from '../interfaces/post-miniatu
 import Loader from './loader';
 import { blogPostsMainPageReq, searchBlogPostsReq } from '../auth/fetch';
 import ImageLoader from './image-loader';
-import showSnackBar from './snackbar';
+import SnackBar from './snackbar';
 
 export default class PostsMiniatures {
   postMiniaturesArray: PostMiniature[][];
@@ -11,6 +11,7 @@ export default class PostsMiniatures {
   isSearchMode: boolean;
   query: string;
   loader: Loader;
+  snackBar: SnackBar;
 
   constructor() {
     this.postMiniaturesArray = [];
@@ -18,6 +19,7 @@ export default class PostsMiniatures {
     this.pageNumber = 1;
     this.isSearchMode = false;
     this.loader = new Loader();
+    this.snackBar = new SnackBar();
   }
 
   getPostTemplate() {
@@ -160,7 +162,7 @@ export default class PostsMiniatures {
       .getBlogPostsMainPageByNumber(number)
       .then((r) => r.json())
       .catch((err) => {
-        showSnackBar('something went wrong, try again');
+        this.snackBar.showSnackBar('something went wrong, try again');
         this.loader.removeLoader();
       });
     if (postMins.blog_posts.length > 0) {

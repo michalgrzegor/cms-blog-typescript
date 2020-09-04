@@ -2,12 +2,13 @@ import Quill from 'quill';
 import BlogPostInterface from '../../blog-post/blog-ui';
 import { blogPostReq } from '../../auth/fetch';
 import Loader from '../../shared-ui/loader';
-import showSnackBar from '../../shared-ui/snackbar';
+import SnackBar from '../../shared-ui/snackbar';
 import { ColectedPostData } from '../../interfaces/fetch-interfaces';
 import { BlogPost } from '../../interfaces/blog-post-interfaces';
 
 let editor: Quill;
 const loader: Loader = new Loader();
+const snackBar: SnackBar = new SnackBar();
 
 const options = {
   modules: {
@@ -82,7 +83,7 @@ const sendPost = () => {
     })
     .then((r) => redirectToBlogPost(r))
     .catch((err) => {
-      showSnackBar('something went wrong, try again');
+      snackBar.showSnackBar('something went wrong, try again');
       loader.removeLoader();
     });
 };
@@ -110,7 +111,7 @@ const sendUpdate = (id: string) => {
     })
     .then((r) => redirectToBlogPost(r))
     .catch((err) => {
-      showSnackBar('something went wrong, try again');
+      snackBar.showSnackBar('something went wrong, try again');
       loader.removeLoader();
     });
 };

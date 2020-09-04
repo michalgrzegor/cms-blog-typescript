@@ -5,8 +5,51 @@
   left: calc(50vw - 16rem);
   width: 32rem;
   border-radius: 0.4rem;
+  padding: 1.2rem;
+  display: grid;
+  grid-template-columns: 1fr 3.6rem;
+  align-items: center;
 
   p {
     color: $whiteText;
+    text-align: center;
+    padding: 0;
+  }
+
+  button {
+    width: 3.6rem;
+    height: 3.6rem;
+    background: $backgroundDarkGrey;
+    border: none;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  button::after,
+  button::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 0.2rem;
+    background: $whiteText;
+    position: absolute;
+    top: calc(50% - 0.1rem);
+    left: calc(50% - 1rem);
+  }
+
+  button::after {
+    transform: rotate(45deg);
+  }
+
+  button::before {
+    transform: rotate(135deg);
+  }
+
+  button:focus,
+  button:active {
+    border: none;
+    outline: none;
+    box-shadow: 0px 0px 13px 0px $whiteText;
+    background: $backgroundHighlight;
   }
 }

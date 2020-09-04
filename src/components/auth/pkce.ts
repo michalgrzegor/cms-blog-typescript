@@ -1,6 +1,8 @@
 import { TOKEN_HANDLER } from './fetch';
-import showSnackBar from '../shared-ui/snackbar';
+import SnackBar from '../shared-ui/snackbar';
 import { SuccesfullLoginResponse, QuerryResponse } from '../interfaces/auth-interfaces';
+
+const snackBar: SnackBar = new SnackBar();
 
 const URL = 'https://fierce-anchorage-12434.herokuapp.com/';
 
@@ -91,7 +93,7 @@ const parseQueryString = (string: string) => {
 
 export const errorHandling = (response: any, message: string = null) => {
   const text = !message ? response.body : message;
-  if (!response.ok) showSnackBar(text);
+  if (!response.ok) snackBar.showSnackBar(text);
   return response;
 };
 
@@ -128,7 +130,7 @@ const sendPostRequestForAccesToken = async (query: QuerryResponse) => {
 const handleSuccess = (query: QuerryResponse) =>
   new Promise((resolve, reject) => {
     if (localStorage.getItem('pkce_state') !== query.state) {
-      showSnackBar('Invalid state');
+      snackBar.showSnackBar('Invalid state');
       localStorage.removeItem('pkce_state');
       localStorage.removeItem('pkce_code_verifier');
       reject();
@@ -148,7 +150,7 @@ export const handleRedirect = () =>
       handleSuccess(query).then(() => resolve());
     }
     if (!window.location.search.substring(1)) resolve();
-    if (query.error) reject(showSnackBar(query.error));
+    if (query.error) reject(snackBar.showSnackBar(query.error));
   });
 
 // Refresh Token
