@@ -17,7 +17,7 @@ application allows you to manage your profile.
 
 ## Tech info
 
-- The CMS blog was written in **vanilla Javascript**. I used **Webpack** and split the code into
+- The CMS blog was written in **Typescript**. I used **Webpack** and split the code into
   modules.
 - Authentication and authorization have been implemented based on the **OAuth 2.0** protocol using
   the **Authorization Code Grant** flow.
@@ -29,7 +29,7 @@ application allows you to manage your profile.
 
 ## Technologies
 
-- Javascript
+- Typescript
 - Webpack
 - Quill editor
 - OAuth 2.0
