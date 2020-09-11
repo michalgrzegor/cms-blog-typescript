@@ -1,13 +1,20 @@
-import { usersReq } from '../../auth/fetch';
 import Loader from '../../shared-ui/loader';
-import { logout } from '../../auth/pkce';
 import ImageLoader from '../../shared-ui/image-loader';
 import SnackBar from '../../shared-ui/snackbar';
-import * as validation from '../../auth/validation';
+import Validator from '../../auth/validator';
 import { User } from '../../interfaces/admin-panel-interfaces';
+import authMediator from '../../auth/auth-mediator';
+import AuthorizationCodeFlow from '../../auth/authorization-code-flow';
 
 const loader: Loader = new Loader();
 const snackBar: SnackBar = new SnackBar();
+const validator: Validator = new Validator();
+
+authMediator.addHandler({
+  name: 'logout',
+  className: AuthorizationCodeFlow,
+  methodName: 'logout',
+});
 
 const checkError = (response: any) => {
   if (response.status >= 200 && response.status <= 299) {
@@ -60,8 +67,8 @@ const changeEmailPassword = () => {
 };
 
 const saveAccount = () => {
-  let base64Img = null;
-  let about = null;
+  let base64Img: any = null;
+  let about: any = null;
   if (document.querySelector<HTMLImageElement>('.account__edit img').src.slice(0, 4) === 'data')
     base64Img = document.querySelector<HTMLImageElement>('.account__edit img').src;
   if (
@@ -69,15 +76,18 @@ const saveAccount = () => {
     'write a few sentences about yourself'
   )
     about = document.querySelector<HTMLInputElement>('.input__about').value;
-  loader.createLoader(document.body);
-  usersReq()
-    .updateUser({
-      username: document.querySelector<HTMLInputElement>('.input__name').value,
-      about: about,
-      avatar: {
-        data: base64Img,
-      },
-    })
+  loader.showLoader(document.body);
+  authMediator
+    .handleRequest('users requests')
+    .then((r) =>
+      r.updateUser({
+        username: document.querySelector<HTMLInputElement>('.input__name').value,
+        about: about,
+        avatar: {
+          data: base64Img,
+        },
+      })
+    )
     .then((r) => r.json())
     .then((r) => renderMyAccount(r))
     .catch((err) => {
@@ -94,27 +104,33 @@ const saveEmailPassChanges = () => {
   ];
   let isFormValid = true;
   inputArray.forEach((input) => {
-    if (!validation.isValid(input.value, input.type)) isFormValid = false;
+    if (!validator.isValid({ value: input.value, type: input.type })) isFormValid = false;
   });
   if (newPass.value.length > 0) {
-    if (!validation.isValid(newPass.value, newPass.type)) isFormValid = false;
+    if (!validator.isValid({ value: newPass.value, type: newPass.type })) isFormValid = false;
   }
   if (isFormValid) {
-    loader.createLoader(document.body);
-    usersReq()
-      .changeEmailPassword({
-        email: document.querySelector<HTMLInputElement>('.input__email').value,
-        password: document.querySelector<HTMLInputElement>('.input__newpass').value,
-        old_password: document.querySelector<HTMLInputElement>('.input__oldpass').value,
-      })
+    loader.showLoader(document.body);
+    authMediator
+      .handleRequest('users requests')
+      .then((r) =>
+        r.changeEmailPassword({
+          email: document.querySelector<HTMLInputElement>('.input__email').value,
+          password: document.querySelector<HTMLInputElement>('.input__newpass').value,
+          old_password: document.querySelector<HTMLInputElement>('.input__oldpass').value,
+        })
+      )
       .then((r) => {
         loader.removeLoader();
         if (r.status === 200) r.json().then((re: User) => renderMyAccount(re));
         if (r.status !== 200) r.json().then((re: any) => snackBar.showSnackBar(re.details));
       });
   } else {
-    inputArray.forEach((input) => validation.validate(input.value, input.type, input.id));
-    if (newPass.value.length > 0) validation.validate(newPass.value, newPass.type, newPass.id);
+    inputArray.forEach((input) =>
+      validator.validate({ value: input.value, type: input.type, id: input.id })
+    );
+    if (newPass.value.length > 0)
+      validator.validate({ value: newPass.value, type: newPass.type, id: newPass.id });
   }
 };
 
@@ -164,17 +180,20 @@ const addEvents = (template: HTMLTemplateElement) => {
     template.querySelector<HTMLInputElement>('#input__oldpass'),
   ].forEach((input) => {
     input.addEventListener('blur', () => {
-      validation.validate(input.value, input.type, input.id);
+      validator.validate({ value: input.value, type: input.type, id: input.id });
     });
   });
   template.querySelector<HTMLInputElement>('#input__newpass').addEventListener('blur', function () {
-    if (this.value.length > 0) validation.validate(this.value, this.type, this.id);
+    if (this.value.length > 0)
+      validator.validate({ value: this.value, type: this.type, id: this.id });
   });
   template.querySelector('.btn-cancel').addEventListener('click', () => toggleProfileElements());
   template
     .querySelector('.btn-cancel-change')
     .addEventListener('click', () => toggleChangeEmailPasswordElements());
-  template.querySelector('.btn-logout').addEventListener('click', () => logout());
+  template
+    .querySelector('.btn-logout')
+    .addEventListener('click', () => authMediator.handleRequest('logout'));
 };
 
 const renderMyAccount = (json: User) => {
@@ -201,9 +220,10 @@ const renderMyAccount = (json: User) => {
 };
 
 const initMyAccount = () => {
-  loader.createLoader(document.body);
-  usersReq()
-    .getUser()
+  loader.showLoader(document.body);
+  authMediator
+    .handleRequest('users requests')
+    .then((r) => r.getUser())
     .then(checkError)
     .then((r) => r.json())
     .then((r) => renderMyAccount(r))

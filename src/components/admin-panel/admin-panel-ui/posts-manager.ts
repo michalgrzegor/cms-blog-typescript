@@ -1,8 +1,8 @@
 import { PostListElement } from './../../interfaces/admin-panel-interfaces';
 import ManagerFunctions from './shared-functions';
-import { blogPostReq } from '../../auth/fetch';
 import Loader from '../../shared-ui/loader';
 import SnackBar from '../../shared-ui/snackbar';
+import authMediator from '../../auth/auth-mediator';
 
 const mf: ManagerFunctions = new ManagerFunctions();
 const loader: Loader = new Loader();
@@ -17,9 +17,13 @@ const renderPostsManager = (postsList: PostListElement[]) => {
 };
 
 const initPostsManager = () => {
-  loader.createLoader(document.body);
-  blogPostReq()
-    .getAllBlogPosts()
+  loader.showLoader(document.body);
+
+  authMediator
+    .handleRequest('blog post requests')
+    .then((r) => {
+      return r.getAllBlogPosts();
+    })
     .then((response) => response.json())
     .then(renderPostsManager)
     .catch((err) => {

@@ -1,10 +1,10 @@
 import Quill from 'quill';
 import BlogPostInterface from '../../blog-post/blog-ui';
-import { blogPostReq } from '../../auth/fetch';
 import Loader from '../../shared-ui/loader';
 import SnackBar from '../../shared-ui/snackbar';
 import { ColectedPostData } from '../../interfaces/fetch-interfaces';
 import { BlogPost } from '../../interfaces/blog-post-interfaces';
+import authMediator from '../../auth/auth-mediator';
 
 let editor: Quill;
 const loader: Loader = new Loader();
@@ -74,9 +74,10 @@ const sendPost = () => {
       ops: editor.getContents().ops,
     },
   };
-  loader.createLoader(document.body);
-  blogPostReq()
-    .postBlogPost(data)
+  loader.showLoader(document.body);
+  authMediator
+    .handleRequest('blog post requests')
+    .then((r) => r.postBlogPost(data))
     .then((r) => {
       const response = r.json();
       return response;
@@ -102,9 +103,10 @@ const sendUpdate = (id: string) => {
       ops: editor.getContents().ops,
     },
   };
-  loader.createLoader(document.body);
-  blogPostReq()
-    .updateBlogPost(id, data)
+  loader.showLoader(document.body);
+  authMediator
+    .handleRequest('blog post requests')
+    .then((r) => r.updateBlogPost(id, data))
     .then((r) => {
       const response = r.json();
       return response;

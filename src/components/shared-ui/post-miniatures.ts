@@ -1,8 +1,8 @@
 import { PostMiniature, PostMiniatureResponse } from '../interfaces/post-miniature-interfaces';
 import Loader from './loader';
-import { blogPostsMainPageReq, searchBlogPostsReq } from '../auth/fetch';
 import ImageLoader from './image-loader';
 import SnackBar from './snackbar';
+import authMediator from '../auth/auth-mediator';
 
 export default class PostsMiniatures {
   postMiniaturesArray: PostMiniature[][];
@@ -124,12 +124,15 @@ export default class PostsMiniatures {
     this.pageNumber = pageNumber;
     if (this.isSearchMode) {
       document.querySelector('.container').innerHTML = '';
-      this.loader.createLoader(document.querySelector('.container'));
-      const postMins = await searchBlogPostsReq()
-        .searchBlogPosts({
-          search: query,
-          page: number,
-        })
+      this.loader.showLoader(document.querySelector('.container'));
+      const postMins = await authMediator
+        .handleRequest('search requests')
+        .then((r) =>
+          r.searchBlogPosts({
+            search: query,
+            page: number,
+          })
+        )
         .then((r) => r.json());
       if (postMins.blog_posts.length > 0) {
         this.postMiniaturesArray = this.generateArrays(postMins);
@@ -156,10 +159,11 @@ export default class PostsMiniatures {
   }
 
   async initPostsMiniatures(number: number): Promise<any> {
-    this.loader.createLoader(document.body);
+    this.loader.showLoader(document.body);
     this.paginationNumber = number;
-    const postMins = await blogPostsMainPageReq()
-      .getBlogPostsMainPageByNumber(number)
+    const postMins = await authMediator
+      .handleRequest('main page requests')
+      .then((r) => r.getBlogPostsMainPageByNumber(number))
       .then((r) => r.json())
       .catch((err) => {
         this.snackBar.showSnackBar('something went wrong, try again');

@@ -1,5 +1,5 @@
 import navigationBody from './navigation-html';
-import { TOKEN_HANDLER } from '../auth/fetch';
+import { TOKEN_HANDLER } from '../auth/http-requests-interface';
 
 const navigationTemplate = () => {
   const temp = document.createElement('template');

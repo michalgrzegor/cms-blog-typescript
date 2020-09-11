@@ -1,4 +1,7 @@
 import '../../style/components_style/auth.scss';
-import renderForm from './auth-view';
+import RenderForms from './render-forms';
 
-renderForm('form__signup');
+(function onLoad() {
+  const renderForm: RenderForms = new RenderForms(document.querySelector('.auth__form'));
+  renderForm.renderForm('form__signup');
+})();

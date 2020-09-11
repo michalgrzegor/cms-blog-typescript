@@ -1,10 +1,10 @@
 import Loader from '../../shared-ui/loader';
-import { blogPostReq } from '../../auth/fetch';
 import { loadDataToEditor } from './text-editor';
 import { changeToEditor } from '../admin-navigation';
 import OpenDialog from '../../shared-ui/dialog';
 import { User, PostListElement } from '../../interfaces/admin-panel-interfaces';
 import SnackBar from '../../shared-ui/snackbar';
+import authMediator from '../../auth/auth-mediator';
 
 export default class ManagerFunctions extends OpenDialog {
   entryList: (User | PostListElement)[];
@@ -35,9 +35,10 @@ export default class ManagerFunctions extends OpenDialog {
   addPostsBtnEvents(template: HTMLDivElement) {
     Array.from(template.querySelectorAll('.btn--edit')).forEach((btn) => {
       btn.addEventListener('click', () => {
-        this.loader.createLoader(document.body);
-        blogPostReq()
-          .getBlogPost(btn.getAttribute('post-id'))
+        this.loader.showLoader(document.body);
+        authMediator
+          .handleRequest('blog post requests')
+          .then((r) => r.getBlogPost(btn.getAttribute('post-id')))
           .then((r) => r.json())
           .then(changeToEditor)
           .then(loadDataToEditor)
@@ -49,18 +50,19 @@ export default class ManagerFunctions extends OpenDialog {
       });
     });
     Array.from(template.querySelectorAll('.btn--delete')).forEach((btn) => {
-      btn.addEventListener('click', () => {
-        this.loader.createLoader(document.body);
+      btn.addEventListener('click', async () => {
+        this.loader.showLoader(document.body);
+        const requests = await authMediator.handleRequest('blog post requests').then((r) => r);
         const accept = () => {
-          blogPostReq()
+          requests
             .deleteBlogPost(btn.getAttribute('post-id'))
-            .then(() => blogPostReq().getAllBlogPosts())
-            .then((response) => response.json())
-            .then((response) => this.setLists(response, this.mngType))
+            .then(() => requests.getAllBlogPosts())
+            .then((response: any) => response.json())
+            .then((response: any) => this.setLists(response, this.mngType))
             .then(() => this.removeTable())
             .then(() => this.renderTable())
             .then(() => this.loader.removeLoader())
-            .catch((err) => {
+            .catch((err: any) => {
               this.snackBar.showSnackBar('something went wrong, try again');
               this.loader.removeLoader();
             });

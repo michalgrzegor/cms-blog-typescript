@@ -1,7 +1,7 @@
 import { User } from './../interfaces/admin-panel-interfaces';
-import { usersReq } from '../auth/fetch';
 import ImageLoader from '../shared-ui/image-loader';
 import Loader from '../shared-ui/loader';
+import authMediator from '../auth/auth-mediator';
 
 export default class AboutPage {
   private usersList: User[];
@@ -35,9 +35,10 @@ export default class AboutPage {
   }
 
   initAbout() {
-    this.loader.createLoader(document.body);
-    usersReq()
-      .getUsers()
+    this.loader.showLoader(document.body);
+    authMediator
+      .handleRequest('users requests')
+      .then((r) => r.getUsers())
       .then((r) => r.json())
       .then((response) => (this.usersList = response))
       .then(() => this.renderCards())

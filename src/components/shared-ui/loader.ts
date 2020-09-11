@@ -1,12 +1,21 @@
 export default class Loader {
-  createLoader = (parrent: Element) => {
+  private loader: HTMLDivElement;
+
+  constructor() {
+    this.loader = this.createLoader();
+  }
+
+  private createLoader() {
     const loader = document.createElement('div');
     loader.id = 'loader';
-    parrent.appendChild(loader);
+    return loader;
+  }
+
+  showLoader = (parrent: Element) => {
+    parrent.appendChild(this.loader);
   };
 
   removeLoader = () => {
-    const loader = document.querySelector('#loader');
-    loader.remove();
+    this.loader.remove();
   };
 }

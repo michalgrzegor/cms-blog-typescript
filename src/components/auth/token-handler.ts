@@ -1,5 +1,5 @@
-import { makeRefreshTokenPost, errorHandling } from './pkce';
 import { SuccesfullLoginResponse } from '../interfaces/auth-interfaces';
+import authMediator from './auth-mediator';
 
 export default class TokenHandler {
   TOKEN: string;
@@ -42,7 +42,7 @@ export default class TokenHandler {
     }
   }
 
-  setExpireTime() {
+  private setExpireTime() {
     const tokenCreationTime = Number(localStorage.getItem('refresh_token_created_at')) * 1000;
     const NowMs = new Date().getTime();
     const expTime = Number(localStorage.getItem('refresh_token_expired_time')) * 1000;
@@ -55,11 +55,24 @@ export default class TokenHandler {
   }
 
   async refreshToken() {
-    return makeRefreshTokenPost()
-      .then((r) => errorHandling(r, 'something went wrong, try again'))
+    return authMediator
+      .handleRequest('refreshToken')
+      .then((r) =>
+        authMediator.handleRequest('error', {
+          response: r,
+          message: 'something went wrong, try again',
+        })
+      )
       .then((r) => r.json())
-      .then((r) => this.setTokens(r))
-      .catch((error) => errorHandling(error, 'something went wrong, try again'));
+      .then((r) => {
+        this.setTokens(r);
+      })
+      .catch((error) => {
+        authMediator.handleRequest('error', {
+          response: error,
+          message: 'something went wrong, try again',
+        });
+      });
   }
 
   getToken() {

@@ -9,11 +9,18 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --open",
-    "linter": "eslint --fix ./src/*.ts"
+    "linter": "eslint --fix ./src/*.ts",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/jest": "^26.0.10",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.6.0",
     "eslint": "^7.2.0",

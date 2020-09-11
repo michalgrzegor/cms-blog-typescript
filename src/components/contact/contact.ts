@@ -1,6 +1,6 @@
 import '../../style/components_style/contact.scss';
 import NavigationBar from '../navigation-bar/navigation';
-import { TOKEN_HANDLER } from '../auth/fetch';
+import { TOKEN_HANDLER } from '../auth/http-requests-interface';
 
 (function onLoad() {
   function initMap(): void {

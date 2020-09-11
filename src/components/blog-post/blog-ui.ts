@@ -6,10 +6,10 @@ import {
 import twitter from '../../assets/img/twitter.png';
 import facebook from '../../assets/img/facebook.png';
 import commentlogo from '../../assets/img/commentlogo.png';
-import { blogPostsMainPageReq } from '../auth/fetch';
 import Loader from '../shared-ui/loader';
 import { ColectedPostData } from '../interfaces/fetch-interfaces';
 import ImageLoader from '../shared-ui/image-loader';
+import authMediator from '../auth/auth-mediator';
 
 export default class BlogPostInterface {
   private blogPostData: BlogPost | ColectedPostData;
@@ -122,7 +122,9 @@ export default class BlogPostInterface {
   }
 
   private getBlogPost(): Promise<any> {
-    return blogPostsMainPageReq().getBlogPostMainPage(this.getPostId());
+    return authMediator
+      .handleRequest('main page requests')
+      .then((r) => r.getBlogPostMainPage(this.getPostId()));
   }
 
   createBlogPost(): void {
@@ -132,7 +134,7 @@ export default class BlogPostInterface {
   }
 
   initBlogPost(): void {
-    this.loader.createLoader(document.body);
+    this.loader.showLoader(document.body);
     this.getBlogPost()
       .then((res) => res.json())
       .then((res) => (this.blogPostData = res))
