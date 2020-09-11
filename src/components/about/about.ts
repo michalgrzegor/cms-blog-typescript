@@ -1,6 +1,6 @@
 import '../../style/components_style/about.scss';
 import NavigationBar from '../navigation-bar/navigation';
-import { TOKEN_HANDLER } from '../auth/http-requests-interface';
+import TOKEN_HANDLER from '../auth/token-handler-instance';
 import AboutPage from './about-ui';
 
 (function onLoad() {

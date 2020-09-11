@@ -1,12 +1,12 @@
+import adminPanelNavigator from '../admin-navigation';
 import Loader from '../../shared-ui/loader';
-import { loadDataToEditor } from './text-editor';
-import { changeToEditor } from '../admin-navigation';
+import textEditor from './text-editor';
 import OpenDialog from '../../shared-ui/dialog';
 import { User, PostListElement } from '../../interfaces/admin-panel-interfaces';
 import SnackBar from '../../shared-ui/snackbar';
 import authMediator from '../../auth/auth-mediator';
 
-export default class ManagerFunctions extends OpenDialog {
+export default class ManagerFunctions {
   entryList: (User | PostListElement)[];
   list: (User | PostListElement)[];
   renderedList: (User | PostListElement)[];
@@ -17,7 +17,6 @@ export default class ManagerFunctions extends OpenDialog {
   snackBar: SnackBar;
 
   constructor() {
-    super();
     this.entryList = [];
     this.list = [];
     this.renderedList = [];
@@ -40,8 +39,8 @@ export default class ManagerFunctions extends OpenDialog {
           .handleRequest('blog post requests')
           .then((r) => r.getBlogPost(btn.getAttribute('post-id')))
           .then((r) => r.json())
-          .then(changeToEditor)
-          .then(loadDataToEditor)
+          .then((r) => adminPanelNavigator.changeToEditor(r))
+          .then((r) => textEditor.loadDataToEditor(r))
           .then(() => this.loader.removeLoader())
           .catch((err) => {
             this.snackBar.showSnackBar('something went wrong, try again');
@@ -70,7 +69,8 @@ export default class ManagerFunctions extends OpenDialog {
         const decline = () => {
           this.loader.removeLoader();
         };
-        this.createDialog(accept, decline, 'Delete this blog post?');
+        const openDialog = new OpenDialog();
+        openDialog.createDialog(accept, decline, 'Delete this blog post?');
       });
     });
   }

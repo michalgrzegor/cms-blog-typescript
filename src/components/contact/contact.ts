@@ -1,6 +1,6 @@
 import '../../style/components_style/contact.scss';
+import TOKEN_HANDLER from '../auth/token-handler-instance';
 import NavigationBar from '../navigation-bar/navigation';
-import { TOKEN_HANDLER } from '../auth/http-requests-interface';
 
 (function onLoad() {
   function initMap(): void {
@@ -8,9 +8,11 @@ import { TOKEN_HANDLER } from '../auth/http-requests-interface';
     const templateClone: Node = template.content.cloneNode(true);
     document.querySelector('.contact__map').appendChild(templateClone);
   }
-  window.customElements.define('navigation-bar', NavigationBar);
   window.addEventListener('load', () => {
-    TOKEN_HANDLER.setIsExpired(false);
+    setTimeout(() => {
+      TOKEN_HANDLER.setIsExpired(false);
+      window.customElements.define('navigation-bar', NavigationBar);
+    }, 1);
     initMap();
   });
 })();

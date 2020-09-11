@@ -6,6 +6,8 @@
 
 ## General info
 
+This code is a refactored application from [this repository](https://github.com/michalgrzegor/cms-blog)
+
 This frontend application works together with this
 [rails application](https://github.com/matigrzegor/cms-blog)
 

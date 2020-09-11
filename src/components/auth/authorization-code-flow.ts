@@ -1,4 +1,4 @@
-import { TOKEN_HANDLER } from './http-requests-interface';
+import TOKEN_HANDLER from './token-handler-instance';
 import SnackBar from '../shared-ui/snackbar';
 import {
   SuccesfullLoginResponse,

@@ -1,6 +1,6 @@
 import './style/style.scss';
 import PostsMiniatures from './components/shared-ui/post-miniatures';
-import { TOKEN_HANDLER } from './components/auth/http-requests-interface';
+import TOKEN_HANDLER from './components/auth/token-handler-instance';
 import NavigationBar from './components/navigation-bar/navigation';
 
 (function onLoad() {

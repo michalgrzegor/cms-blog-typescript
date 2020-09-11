@@ -1,8 +1,7 @@
 import Loader from '../shared-ui/loader';
-import TokenHandler from './token-handler';
+import TOKEN_HANDLER from './token-handler-instance';
 import authMediator from './auth-mediator';
-
-export const TOKEN_HANDLER = new TokenHandler();
+import TokenHandler from './token-handler';
 
 export class HttpRequestsInterface {
   URL: string;
@@ -78,5 +77,5 @@ export class HttpRequestsInterface {
     });
   }
 
-  generateToken = async () => this.makeRequest(this.getToken, null);
+  generateToken = async () => this.makeRequest(this.getToken.bind(this), null);
 }
