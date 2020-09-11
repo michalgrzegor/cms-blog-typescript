@@ -6,7 +6,7 @@ import { User, PostListElement } from '../../interfaces/admin-panel-interfaces';
 import SnackBar from '../../shared-ui/snackbar';
 import authMediator from '../../auth/auth-mediator';
 
-export default class ManagerFunctions {
+export default class AdminPanelFunctionsManager {
   entryList: (User | PostListElement)[];
   list: (User | PostListElement)[];
   renderedList: (User | PostListElement)[];

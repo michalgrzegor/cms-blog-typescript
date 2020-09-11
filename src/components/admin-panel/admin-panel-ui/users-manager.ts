@@ -1,8 +1,8 @@
 import { User } from './../../interfaces/admin-panel-interfaces';
-import ManagerFunctions from './shared-functions';
+import AdminPanelFunctionsManager from './admin-panel-functions-manager';
 import authMediator from '../../auth/auth-mediator';
 
-export default class UsersManager extends ManagerFunctions {
+export default class UsersManager extends AdminPanelFunctionsManager {
   displayToken = async () => {
     const token = await authMediator.handleRequest('generate signup token').then((r) => r.json());
     const container = document.querySelector('.editor__buttons');

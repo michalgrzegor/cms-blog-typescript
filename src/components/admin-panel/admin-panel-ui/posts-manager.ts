@@ -1,8 +1,8 @@
 import { PostListElement } from './../../interfaces/admin-panel-interfaces';
-import ManagerFunctions from './shared-functions';
+import AdminPanelFunctionsManager from './admin-panel-functions-manager';
 import authMediator from '../../auth/auth-mediator';
 
-export default class PostsManager extends ManagerFunctions {
+export default class PostsManager extends AdminPanelFunctionsManager {
   renderPostsManager = (postsList: PostListElement[]) => {
     if (postsList.length > 0) {
       this.renderLegend('post', postsList);
