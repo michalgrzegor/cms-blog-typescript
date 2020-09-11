@@ -1,6 +1,6 @@
 # CMS blog
 
-### Blog website and application for managing content written in vanilla Javascript
+### Blog website and application for managing content written in Typescript
 
 ![Logo](work_2.png)
 
@@ -23,8 +23,10 @@ application allows you to manage your profile.
   the **Authorization Code Grant** flow.
 - An **access token** is stored in a variable and when refreshing the page or when the access token
   expires, **refresh token** allows an application to obtain a new access token.
+- For communication between authentication objects, I used the mediator pattern.
 - I used the WYSIWYG **Quill** editor and **Delta** format for API communication.
 - The drop-down menu is written in **Web Component** technology.
+- I used **Jest** for testing applications.
 - In a project, I wanted to learn asynchronous JavaScript and write reusable components.
 
 ## Technologies
