@@ -6,11 +6,14 @@ import HttpRequestsBlogPosts from './http-requests/http-requests-blog-posts';
 import HttpRequestsUsers from './http-requests/http-requests-users';
 import HttpRequestsMainPage from './http-requests/http-requests-main-page';
 import HttpRequestsSearch from './http-requests/http-requests-search';
+import SnackBar from '../shared-ui/snackbar';
 
-class AuthMediator {
+export class AuthMediator {
   private handlerArray: Handler[];
+  private snackBar: SnackBar;
   constructor() {
     this.handlerArray = [];
+    this.snackBar = new SnackBar();
   }
 
   public addHandler(handler: Handler) {
@@ -26,6 +29,7 @@ class AuthMediator {
         const classInstance = new handler.className();
         resolve(classInstance[`${handler.methodName}`](optionalArguments));
       } else {
+        this.snackBar.showSnackBar(`there is no handler: ${handlerName}`);
         reject();
       }
     });

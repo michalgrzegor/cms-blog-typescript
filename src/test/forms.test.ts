@@ -70,3 +70,35 @@ describe('rendering forms', () => {
     expect(document.querySelector('.form__reset')).toBeTruthy();
   });
 });
+
+describe('rendering errors', () => {
+  test('find button', () => {
+    renderForms.renderForm('form__signup');
+    expect(document.querySelector<HTMLButtonElement>('.form__button')).toBeTruthy();
+  });
+  test('rendering 4 errors in signup form, no value', () => {
+    renderForms.renderForm('form__signup');
+    document.querySelector<HTMLButtonElement>('.form__button').click();
+    setTimeout(() => {
+      expect(Array.from(document.querySelectorAll('.error')).length).toBe(4);
+    }, 0);
+  });
+  test('3 errors when correct email addres, and no email error', () => {
+    renderForms.renderForm('form__signup');
+    document.querySelector<HTMLInputElement>('#user_email_signup').value = 'test@test.pl';
+    document.querySelector<HTMLButtonElement>('.form__button').click();
+    setTimeout(() => {
+      expect(Array.from(document.querySelectorAll('.error')).length).toBe(3);
+      expect(document.querySelector('.error_user_email_signup')).toBeFalsy();
+    }, 0);
+  });
+  test('3 errors when no value and focus on one input', () => {
+    renderForms.renderForm('form__signup');
+    document.querySelector<HTMLButtonElement>('.form__button').click();
+    document.querySelector<HTMLInputElement>('#user_name_signup').focus();
+    setTimeout(() => {
+      expect(Array.from(document.querySelectorAll('.error')).length).toBe(3);
+      expect(document.querySelector('.error_user_name_signup')).toBeFalsy();
+    }, 0);
+  });
+});
