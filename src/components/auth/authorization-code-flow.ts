@@ -14,23 +14,23 @@ export default class AuthorizationCodeFlow {
   constructor() {
     this.snackBar = new SnackBar();
     this.URL = 'https://fierce-anchorage-12434.herokuapp.com/';
-    this.CONFIG = {
-      client_id: 'FP1rr80oHoUmlKPq2VTdetRERSvt4Xp3JHNWm7SrGsA',
-      redirect_uri: 'http://localhost:8080/admin-panel.html',
-      authorization_endpoint: 'oauth/authorize',
-      token_endpoint: 'oauth/token',
-      requested_scopes: 'openid',
-      client_secret: 'SpQsQF-LC4bYQgrbHam7DTv7YqjTkKwYArhEEl7z_n8',
-    };
-
     // this.CONFIG = {
-    //   client_id: 'fecp3e5pAkjOarXF5nsWAoPe1_qr-s2E81chKuSGP0o',
-    //   redirect_uri: 'https://musing-ramanujan-8002a4.netlify.app/admin-panel.html',
+    //   client_id: 'FP1rr80oHoUmlKPq2VTdetRERSvt4Xp3JHNWm7SrGsA',
+    //   redirect_uri: 'http://localhost:8080/admin-panel.html',
     //   authorization_endpoint: 'oauth/authorize',
     //   token_endpoint: 'oauth/token',
     //   requested_scopes: 'openid',
-    //   client_secret: 'V0URuNE4mYtY8LqdJ5NN7siTngfEpEs_bvLlXbcZrdk',
+    //   client_secret: 'SpQsQF-LC4bYQgrbHam7DTv7YqjTkKwYArhEEl7z_n8',
     // };
+
+    this.CONFIG = {
+      client_id: 'fecp3e5pAkjOarXF5nsWAoPe1_qr-s2E81chKuSGP0o',
+      redirect_uri: 'https://musing-ramanujan-8002a4.netlify.app/admin-panel.html',
+      authorization_endpoint: 'oauth/authorize',
+      token_endpoint: 'oauth/token',
+      requested_scopes: 'openid',
+      client_secret: 'V0URuNE4mYtY8LqdJ5NN7siTngfEpEs_bvLlXbcZrdk',
+    };
   }
 
   private generateRandomString(): string {
