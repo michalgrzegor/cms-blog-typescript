@@ -4,6 +4,11 @@
 
 ![Logo](work_2.png)
 
+## Link to app
+
+Go to this [link](https://musing-ramanujan-8002a4.netlify.app/redirect) and click the **Authorize**
+button.
+
 ## General info
 
 This code is a refactored application from [this repository](https://github.com/michalgrzegor/cms-blog)
@@ -23,11 +28,11 @@ application allows you to manage your profile.
   the **Authorization Code Grant** flow.
 - An **access token** is stored in a variable and when refreshing the page or when the access token
   expires, **refresh token** allows an application to obtain a new access token.
-- For communication between authentication objects, I used the mediator pattern.
+- For communication between authentication objects, I used the **mediator pattern**.
+- I used **Jest** for testing the application.
 - I used the WYSIWYG **Quill** editor and **Delta** format for API communication.
 - The drop-down menu is written in **Web Component** technology.
-- I used **Jest** for testing applications.
-- In a project, I wanted to learn asynchronous JavaScript and write reusable components.
+- In a project, I wanted to learn asynchronous JavaScript and write **reusable components**.
 
 ## Technologies
 
@@ -35,8 +40,10 @@ application allows you to manage your profile.
 - Webpack
 - Quill editor
 - OAuth 2.0
+- Jest
 - Web Components
 - SASS
+- ESLint
 
 ## Setup
 
@@ -47,7 +54,7 @@ $ npm install
 $ npm start
 ```
 
-## Link to app
+## Login information
 
 Go to this [link](https://musing-ramanujan-8002a4.netlify.app/redirect) and click the **Authorize**
 button.
