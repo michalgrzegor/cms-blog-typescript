@@ -64,6 +64,11 @@ authMediator.addHandler({
   className: AuthorizationCodeFlow,
   methodName: 'handleRedirect',
 });
+authMediator.addHandler({
+  name: 'logout',
+  className: AuthorizationCodeFlow,
+  methodName: 'logout',
+});
 
 //validation
 authMediator.addHandler({
